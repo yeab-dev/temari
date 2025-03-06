@@ -4,6 +4,7 @@ class User extends Equatable {
   final String id;
   final String email;
   final String? name;
+  final String? username;
   final String? profilePictureUrl;
   final DateTime? createdAt;
   final DateTime? updatedAt;
@@ -12,6 +13,7 @@ class User extends Equatable {
     required this.id,
     required this.email,
     this.name,
+    this.username,
     this.profilePictureUrl,
     this.createdAt,
     this.updatedAt,
