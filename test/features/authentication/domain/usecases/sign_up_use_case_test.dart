@@ -8,27 +8,21 @@ import 'package:temari/features/authentication/domain/usecases/sign_up_use_case.
 import 'mock_auth_repo.dart';
 
 void main() {
-  late AuthRepo repo;
-  late SignUpUseCase usecase;
-  final params = Params(email: 'email@test.com', password: '123');
-
+  late MockAuthRepo repo;
+  late SignUpUseCase useCase;
+  final tUser = User(id: '1', email: 'user@email.com');
+  Params params = Params(email: 'user@email.com', password: '123');
   setUp(() {
     repo = MockAuthRepo();
-    usecase = SignUpUseCase(repo: repo);
+    useCase = SignUpUseCase(repo: repo);
   });
 
-  test('should call [AuthRepo.signUp] and return with the right data',
-      () async {
-    final tUser = User(id: '123', email: 'test@example.com');
-    when(
-      () => repo.signUp(
-        email: any(named: 'email'),
-        password: any(named: 'password'),
-      ),
-    ).thenAnswer((_) async => Right(tUser));
-
-    final result = await usecase(params);
-    expect(result, equals(Right(tUser)));
+  test('should call [repo.signUp] and return with the right data', () async {
+    when(() => repo.signUp(
+            email: any(named: 'email'), password: any(named: 'password')))
+        .thenAnswer((_) async => Right(tUser));
+    final result = await useCase(params);
+    expect(result, Right(tUser));
     verify(() => repo.signUp(
         email: any(named: 'email'),
         password: any(named: 'password'))).called(1);
