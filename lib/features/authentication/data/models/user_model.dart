@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:temari/features/authentication/domain/entities/user.dart';
 
 class UserModel extends User {
@@ -14,43 +13,27 @@ class UserModel extends User {
   });
 
   factory UserModel.fromJson(String jsonData) {
-    final json = jsonDecode(jsonData);
-    return UserModel(
-      id: json['id'],
-      email: json['email'],
-      fullName: json['fullName'],
-      username: json['username'],
-      profilePictureUrl: json['profilePictureUrl'],
-      createdAt:
-          json['createdAt'] != null ? DateTime.parse(json['createdAt']) : null,
-      updatedAt:
-          json['updatedAt'] != null ? DateTime.parse(json['updatedAt']) : null,
-    );
+    return UserModel.fromMap(jsonDecode(jsonData) as Map<String, dynamic>);
   }
 
   String toJson() {
-    return jsonEncode({
-      'id': id,
-      'email': email,
-      'fullName': fullName,
-      'username': username,
-      'profilePictureUrl': profilePictureUrl,
-      'createdAt': createdAt?.toIso8601String(),
-      'updatedAt': updatedAt?.toIso8601String(),
-    });
+    return jsonEncode(toMap());
   }
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
+    DateTime? parseDate(dynamic date) {
+      if (date == null) return null;
+      return DateTime.tryParse(date.toString());
+    }
+
     return UserModel(
-      id: map['id'],
-      email: map['email'],
-      fullName: map['fullName'],
-      username: map['username'],
-      profilePictureUrl: map['profilePictureUrl'],
-      createdAt:
-          map['createdAt'] != null ? DateTime.parse(map['createdAt']) : null,
-      updatedAt:
-          map['updatedAt'] != null ? DateTime.parse(map['updatedAt']) : null,
+      id: map['id'] as String,
+      email: map['email'] as String,
+      fullName: map['fullName'] as String?,
+      username: map['username'] as String?,
+      profilePictureUrl: map['profilePictureUrl'] as String?,
+      createdAt: parseDate(map['createdAt']),
+      updatedAt: parseDate(map['updatedAt']),
     );
   }
 
