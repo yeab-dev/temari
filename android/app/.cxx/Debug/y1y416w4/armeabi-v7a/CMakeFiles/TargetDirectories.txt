@@ -1,0 +1,2 @@
+/home/yeab/projects/temari/android/app/.cxx/Debug/y1y416w4/armeabi-v7a/CMakeFiles/edit_cache.dir
+/home/yeab/projects/temari/android/app/.cxx/Debug/y1y416w4/armeabi-v7a/CMakeFiles/rebuild_cache.dir
